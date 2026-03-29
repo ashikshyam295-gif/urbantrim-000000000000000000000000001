@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>UrbanTrim — Book Grooming Services in Seconds</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --emerald: #10b981;
+    --emerald-light: #34d399;
+    --emerald-dark: #059669;
+    --charcoal: #111827;
+    --charcoal-soft: #1f2937;
+    --slate: #374151;
+    --muted: #6b7280;
+    --surface: #f9fafb;
+    --white: #ffffff;
+    --border: #e5e7eb;
+    --glow: rgba(16,185,129,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 5%;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s, box-shadow .3s;
+  }
+  nav.scrolled {
+    border-color: var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,.06);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--charcoal);
+    letter-spacing: -0.03em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .logo-dot { width: 10px; height: 10px; background: var(--emerald); border-radius: 50%; display: inline-block; }
+
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-size: .9rem; font-weight: 500; color: var(--slate);
+    text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--charcoal); }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--charcoal);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: .9rem; font-weight: 600;
+    cursor: pointer; border: none;
+    text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    white-space: nowrap;
+  }
+  .btn-primary:hover {
+    background: var(--emerald-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(5,150,105,.3);
+  }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--charcoal);
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: .9rem; font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    text-decoration: none;
+    transition: border-color .2s, background .2s, transform .15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--charcoal);
+    background: var(--charcoal);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 5% 80px;
+    display: flex; align-items: center;
+    background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(16,185,129,.06) 0%, transparent 70%),
+                linear-gradient(180deg, #fff 0%, var(--surface) 100%);
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(16,185,129,.12) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse-slow 6s ease-in-out infinite;
+  }
+  @keyframes pulse-slow {
+    0%,100% { transform: scale(1); opacity: .7; }
+    50% { transform: scale(1.08); opacity: 1; }
+  }
+
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(16,185,129,.1);
+    border: 1px solid rgba(16,185,129,.25);
+    color: var(--emerald-dark);
+    padding: 6px 14px; border-radius: 100px;
+    font-size: .8rem; font-weight: 600;
+    margin-bottom: 24px;
+    animation: fadeUp .6s ease both;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    color: var(--charcoal);
+    margin-bottom: 20px;
+    animation: fadeUp .7s ease .1s both;
+  }
+
+  .hero h1 span { color: var(--emerald); }
+
+  .hero p {
+    font-size: 1.1rem; line-height: 1.75;
+    color: var(--muted); max-width: 480px;
+    margin-bottom: 36px;
+    animation: fadeUp .7s ease .2s both;
+  }
+
+  .hero-cta {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    animation: fadeUp .7s ease .3s both;
+  }
+
+  .hero-cta .btn-primary { font-size: 1rem; padding: 14px 28px; }
+  .hero-cta .btn-outline { font-size: 1rem; padding: 14px 28px; }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 48px;
+    animation: fadeUp .7s ease .4s both;
+  }
+  .hero-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem; font-weight: 800;
+    color: var(--charcoal); letter-spacing: -0.04em;
+  }
+  .hero-stat-label { font-size: .8rem; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+  /* Hero Illustration */
+  .hero-visual {
+    display: flex; flex-direction: column; gap: 16px;
+    animation: fadeUp .8s ease .2s both;
+  }
+
+  .service-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .scard {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 10px;
+    box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    transition: transform .3s ease, box-shadow .3s ease;
+    cursor: default;
+  }
+  .scard:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.1); }
+  .scard:nth-child(1) { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; }
+  .scard:nth-child(2) { background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; }
+  .scard:nth-child(3) { background: linear-gradient(135deg, #fff7ed, #ffedd5); border-color: #fed7aa; }
+  .scard:nth-child(4) { background: linear-gradient(135deg, #fdf4ff, #f3e8ff); border-color: #e9d5ff; }
+
+  .scard-icon { font-size: 2rem; }
+  .scard-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem; color: var(--charcoal); }
+  .scard-sub { font-size: .78rem; color: var(--muted); }
+  .scard-pill {
+    display: inline-flex; align-items: center;
+    background: rgba(0,0,0,.07); border-radius: 100px;
+    font-size: .7rem; font-weight: 600; padding: 3px 10px;
+    color: var(--slate);
+    width: fit-content;
+  }
+
+  .floating-booking {
+    background: var(--charcoal);
+    color: #fff;
+    border-radius: 20px;
+    padding: 16px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 12px 40px rgba(17,24,39,.2);
+  }
+  .floating-booking-left { display: flex; align-items: center; gap: 12px; }
+  .fb-avatar { width: 40px; height: 40px; background: var(--emerald); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .fb-name { font-weight: 600; font-size: .9rem; }
+  .fb-time { font-size: .75rem; color: rgba(255,255,255,.5); }
+  .fb-badge { background: var(--emerald); color: #fff; font-size: .72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px; }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 100px 5%; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--emerald-dark);
+    margin-bottom: 14px;
+  }
+  .section-label::before { content: ''; width: 20px; height: 2px; background: var(--emerald); border-radius: 2px; }
+
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.04em; line-height: 1.12;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 520px;
+  }
+
+  /* ── PROBLEM ── */
+  .problem-section { background: var(--charcoal); color: #fff; }
+  .problem-section .section-label { color: var(--emerald-light); }
+  .problem-section .section-label::before { background: var(--emerald-light); }
+  .problem-section .section-title { color: #fff; }
+  .problem-section .section-sub { color: rgba(255,255,255,.55); }
+
+  .problem-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 60px; }
+
+  .prob-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 24px; padding: 32px;
+    transition: background .3s, transform .3s;
+  }
+  .prob-card:hover { background: rgba(255,255,255,.08); transform: translateY(-4px); }
+  .prob-icon { font-size: 2.2rem; margin-bottom: 20px; }
+  .prob-card h3 { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .prob-card p { font-size: .88rem; color: rgba(255,255,255,.5); line-height: 1.75; }
+
+  /* ── SOLUTION ── */
+  .solution-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+
+  .solution-mockup {
+    background: var(--surface);
+    border-radius: 32px;
+    padding: 32px;
+    border: 1px solid var(--border);
+    box-shadow: 0 24px 80px rgba(0,0,0,.08);
+    position: relative;
+  }
+  .mockup-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .mockup-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+  .mockup-date { font-size: .78rem; color: var(--muted); }
+
+  .mockup-service-row {
+    display: flex; align-items: center; gap: 14px;
+    background: #fff; border-radius: 16px; padding: 14px 16px;
+    border: 1px solid var(--border); margin-bottom: 10px;
+    transition: border-color .2s;
+  }
+  .mockup-service-row:hover { border-color: var(--emerald); }
+  .msr-icon { font-size: 1.6rem; }
+  .msr-info { flex: 1; }
+  .msr-name { font-weight: 600; font-size: .9rem; }
+  .msr-meta { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+  .msr-price { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem; color: var(--charcoal); }
+  .msr-btn {
+    background: var(--charcoal); color: #fff;
+    border: none; border-radius: 8px;
+    padding: 6px 14px; font-size: .75rem; font-weight: 600; cursor: pointer;
+    transition: background .2s;
+  }
+  .msr-btn:hover { background: var(--emerald-dark); }
+
+  .mockup-confirm {
+    background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+    border-radius: 16px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 14px; margin-top: 16px;
+    color: #fff;
+  }
+  .mc-icon { font-size: 1.8rem; }
+  .mc-text { flex: 1; }
+  .mc-title { font-weight: 700; font-size: .9rem; }
+  .mc-sub { font-size: .75rem; opacity: .75; margin-top: 2px; }
+
+  /* ── HOW IT WORKS ── */
+  .hiw-section { background: var(--surface); }
+  .steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; margin-top: 60px; position: relative; }
+  .steps-grid::before {
+    content: '';
+    position: absolute; top: 40px; left: 10%; right: 10%; height: 2px;
+    background: linear-gradient(90deg, var(--emerald) 0%, transparent 100%);
+    background-size: 12px 2px;
+    background-image: repeating-linear-gradient(90deg, var(--emerald) 0, var(--emerald) 6px, transparent 0, transparent 50%);
+    z-index: 0;
+  }
+
+  .step-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 24px; padding: 32px 24px;
+    text-align: center; position: relative; z-index: 1;
+    transition: box-shadow .3s, transform .3s;
+  }
+  .step-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,.08); transform: translateY(-4px); }
+
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--charcoal); color: #fff;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .step-icon { font-size: 2.2rem; margin-bottom: 14px; }
+  .step-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+  .step-card p { font-size: .83rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── FEATURES ── */
+  .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 60px; }
+
+  .feat-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 24px; padding: 28px;
+    transition: box-shadow .3s, transform .3s, border-color .3s;
+  }
+  .feat-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,.08); transform: translateY(-4px); border-color: var(--emerald); }
+  .feat-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--surface); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 18px;
+    transition: background .3s;
+  }
+  .feat-card:hover .feat-icon { background: rgba(16,185,129,.1); border-color: rgba(16,185,129,.25); }
+  .feat-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+  .feat-card p { font-size: .83rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── CUSTOMERS ── */
+  .customers-section { background: var(--surface); }
+  .customers-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 22px; margin-top: 60px; }
+
+  .cust-card {
+    background: #fff; border-radius: 24px; padding: 32px 24px;
+    text-align: center; border: 1px solid var(--border);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .cust-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.1); }
+  .cust-emoji { font-size: 3rem; margin-bottom: 16px; }
+  .cust-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+  .cust-card p { font-size: .82rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── BUSINESS MODEL ── */
+  .biz-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; margin-top: 60px; }
+  .biz-card {
+    border-radius: 24px; padding: 32px;
+    display: flex; gap: 20px; align-items: flex-start;
+    border: 1px solid var(--border); transition: transform .3s, box-shadow .3s;
+  }
+  .biz-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.08); }
+  .biz-card:nth-child(1) { background: linear-gradient(135deg, #f0fdf4, #fff); }
+  .biz-card:nth-child(2) { background: linear-gradient(135deg, #eff6ff, #fff); }
+  .biz-card:nth-child(3) { background: linear-gradient(135deg, #fff7ed, #fff); }
+  .biz-card:nth-child(4) { background: linear-gradient(135deg, #fdf4ff, #fff); }
+  .biz-icon-wrap {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; flex-shrink: 0;
+    background: rgba(255,255,255,.9);
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  }
+  .biz-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+  .biz-card p { font-size: .83rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── VISION ── */
+  .vision-section { background: var(--charcoal); }
+  .vision-section .section-title { color: #fff; }
+  .vision-section .section-sub { color: rgba(255,255,255,.5); }
+
+  .vision-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; margin-top: 60px; }
+  .vision-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 24px; padding: 28px;
+    transition: background .3s, transform .3s;
+  }
+  .vision-card:hover { background: rgba(16,185,129,.1); border-color: rgba(16,185,129,.3); transform: translateY(-4px); }
+  .vision-icon { font-size: 2rem; margin-bottom: 16px; }
+  .vision-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 8px; }
+  .vision-card p { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.7; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--emerald-dark) 0%, #047857 100%);
+    color: #fff; text-align: center; padding: 120px 5%;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,255,255,.08) 0%, transparent 70%);
+  }
+  .cta-section .section-label { color: rgba(255,255,255,.7); }
+  .cta-section .section-label::before { background: rgba(255,255,255,.5); }
+  .cta-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800;
+    letter-spacing: -0.04em; line-height: 1.1;
+    margin-bottom: 20px; color: #fff;
+  }
+  .cta-section p { color: rgba(255,255,255,.7); font-size: 1.1rem; max-width: 480px; margin: 0 auto 40px; line-height: 1.75; }
+  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+  .cta-section .section-label { position: relative; z-index: 1; }
+  .cta-section h2, .cta-section p { position: relative; z-index: 1; }
+  .btn-white {
+    background: #fff; color: var(--charcoal);
+    padding: 14px 28px; border-radius: 100px;
+    font-size: 1rem; font-weight: 700; cursor: pointer; border: none;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,.2); }
+  .btn-ghost {
+    background: rgba(255,255,255,.15); color: #fff;
+    border: 1.5px solid rgba(255,255,255,.3);
+    padding: 14px 28px; border-radius: 100px;
+    font-size: 1rem; font-weight: 600; cursor: pointer;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: background .2s, transform .2s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,.25); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal-soft); color: rgba(255,255,255,.6);
+    padding: 64px 5% 32px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px; margin-bottom: 48px;
+  }
+  .footer-brand .logo { margin-bottom: 14px; display: block; }
+  .footer-brand p { font-size: .85rem; line-height: 1.75; color: rgba(255,255,255,.45); max-width: 240px; }
+
+  .footer-col h4 {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: .9rem;
+    color: #fff; margin-bottom: 18px;
+  }
+  .footer-col a {
+    display: block; color: rgba(255,255,255,.45); text-decoration: none;
+    font-size: .85rem; margin-bottom: 10px; transition: color .2s;
+  }
+  .footer-col a:hover { color: var(--emerald-light); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 28px; display: flex;
+    align-items: center; justify-content: space-between; flex-wrap: gap;
+    font-size: .8rem;
+  }
+
+  .social-links { display: flex; gap: 12px; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .9rem; color: rgba(255,255,255,.5);
+    text-decoration: none; transition: background .2s, color .2s;
+  }
+  .social-btn:hover { background: var(--emerald); color: #fff; border-color: var(--emerald); }
+
+  /* ── FLOATING CTA ── */
+  .floating-cta {
+    position: fixed; bottom: 28px; right: 28px; z-index: 99;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity .3s, transform .3s;
+  }
+  .floating-cta.visible { opacity: 1; transform: translateY(0); }
+  .floating-cta a {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--charcoal); color: #fff;
+    padding: 12px 22px; border-radius: 100px;
+    font-size: .9rem; font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 32px rgba(0,0,0,.25);
+    transition: background .2s, transform .15s;
+  }
+  .floating-cta a:hover { background: var(--emerald-dark); transform: translateY(-2px); }
+
+  /* ── MOBILE MENU ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+  .hamburger span { width: 22px; height: 2px; background: var(--charcoal); border-radius: 2px; transition: all .3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 72px; left: 0; right: 0;
+    background: rgba(255,255,255,.97); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 5%; z-index: 99;
+    flex-direction: column; gap: 20px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 1rem; font-weight: 500; color: var(--slate); text-decoration: none;
+    padding: 8px 0; border-bottom: 1px solid var(--border);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .65s ease, transform .65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+  .reveal-delay-4 { transition-delay: .4s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .hero-grid, .solution-inner { grid-template-columns: 1fr; gap: 48px; }
+    .problem-cards { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .customers-grid { grid-template-columns: 1fr 1fr; }
+    .vision-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid::before { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 0 5%; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 120px 5% 60px; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero-stats { gap: 24px; }
+    .service-cards-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .customers-grid { grid-template-columns: 1fr 1fr; }
+    .biz-grid { grid-template-columns: 1fr; }
+    .vision-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    section { padding: 72px 5%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="#" class="logo"><span class="logo-dot"></span> UrbanTrim</a>
+  <div class="nav-links">
+    <a href="#how-it-works">How It Works</a>
+    <a href="#features">Features</a>
+    <a href="#business">Business</a>
+    <a href="#vision">Vision</a>
+  </div>
+  <div class="nav-cta">
+    <a href="#cta" class="btn-primary">Book Now ↗</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#how-it-works" onclick="toggleMenu()">How It Works</a>
+  <a href="#features" onclick="toggleMenu()">Features</a>
+  <a href="#business" onclick="toggleMenu()">Business</a>
+  <a href="#vision" onclick="toggleMenu()">Vision</a>
+  <a href="#cta" class="btn-primary" style="width:fit-content" onclick="toggleMenu()">Book Now ↗</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">✦ Smart Grooming Platform</div>
+      <h1>Book Grooming<br/>Services in <span>Seconds</span></h1>
+      <p>UrbanTrim connects you with top-rated salons, beauticians, and pet groomers nearby. Book instantly, choose at-home or in-salon — your style, your schedule.</p>
+      <div class="hero-cta">
+        <a href="#cta" class="btn-primary">Book Now →</a>
+        <a href="#features" class="btn-outline">Explore Services</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">0</div>
+          <div class="hero-stat-label">Bookings Made</div>
+        </div>
+        <div style="width:1px;background:var(--border);"></div>
+        <div>
+          <div class="hero-stat-num">0</div>
+          <div class="hero-stat-label">Service Providers</div>
+        </div>
+        <div style="width:1px;background:var(--border);"></div>
+        <div>
+          <div class="hero-stat-num">0★</div>
+          <div class="hero-stat-label">Average Rating</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="service-cards-grid">
+        <div class="scard">
+          <div class="scard-icon">✂️</div>
+          <div class="scard-title">Haircut</div>
+          <div class="scard-sub">Men & Women styling</div>
+          <div class="scard-pill">⚡ From ₹199</div>
+        </div>
+        <div class="scard">
+          <div class="scard-icon">💅</div>
+          <div class="scard-title">Beauty</div>
+          <div class="scard-sub">Facial, skin & makeup</div>
+          <div class="scard-pill">⚡ From ₹299</div>
+        </div>
+        <div class="scard">
+          <div class="scard-icon">🐾</div>
+          <div class="scard-title">Pet Grooming</div>
+          <div class="scard-sub">Cats, dogs & more</div>
+          <div class="scard-pill">⚡ From ₹399</div>
+        </div>
+        <div class="scard">
+          <div class="scard-icon">🏠</div>
+          <div class="scard-title">Home Visit</div>
+          <div class="scard-sub">At your doorstep</div>
+          <div class="scard-pill">⚡ Now available</div>
+        </div>
+      </div>
+      <div class="floating-booking">
+        <div class="floating-booking-left">
+          <div class="fb-avatar">✂️</div>
+          <div>
+            <div class="fb-name">Appointment Confirmed!</div>
+            <div class="fb-time">Today · 3:30 PM · Priya's Salon</div>
+          </div>
+        </div>
+        <div class="fb-badge">✓ Booked</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section class="problem-section">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label reveal">The Problem</div>
+    <h2 class="section-title reveal reveal-delay-1">Grooming shouldn't<br/>be this frustrating</h2>
+    <p class="section-sub reveal reveal-delay-2">Millions waste hours every week on avoidable salon hassles. We're here to fix that.</p>
+
+    <div class="problem-cards">
+      <div class="prob-card reveal reveal-delay-1">
+        <div class="prob-icon">⏳</div>
+        <h3>Endless Waiting Times</h3>
+        <p>Walk-ins mean you're often stuck waiting 30–60 minutes in a crowded salon lobby with zero certainty of when your turn arrives.</p>
+      </div>
+      <div class="prob-card reveal reveal-delay-2">
+        <div class="prob-icon">🔍</div>
+        <h3>Hard to Find Pet Groomers</h3>
+        <p>Finding a reliable, hygienic pet groomer is a nightmare of searching, calling, and hoping — without any rating or verification system.</p>
+      </div>
+      <div class="prob-card reveal reveal-delay-3">
+        <div class="prob-icon">📋</div>
+        <h3>No Organized Booking</h3>
+        <p>Salons rely on WhatsApp messages and phone calls. There's no way to see real-time availability, confirm your slot, or pay securely upfront.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUTION ── -->
+<section>
+  <div class="solution-inner">
+    <div>
+      <div class="section-label reveal">The Solution</div>
+      <h2 class="section-title reveal reveal-delay-1">Meet UrbanTrim — your smart grooming companion</h2>
+      <p class="section-sub reveal reveal-delay-2">We're the all-in-one platform that connects you to verified salons and groomers with real-time availability, instant booking, and doorstep delivery — all in one seamless app.</p>
+
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:36px;">
+        <div class="reveal reveal-delay-2" style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:40px;height:40px;background:#f0fdf4;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;border:1px solid #bbf7d0;">✓</div>
+          <div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:4px;">Verified service providers only</div>
+            <div style="font-size:.83rem;color:var(--muted);line-height:1.7;">Every salon and groomer is background-checked and rated by real customers.</div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-3" style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:40px;height:40px;background:#eff6ff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;border:1px solid #bfdbfe;">⚡</div>
+          <div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:4px;">Real-time slot availability</div>
+            <div style="font-size:.83rem;color:var(--muted);line-height:1.7;">See open time slots and book instantly without a single phone call.</div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-4" style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:40px;height:40px;background:#fff7ed;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;border:1px solid #fed7aa;">🏠</div>
+          <div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:4px;">At-home or in-salon choice</div>
+            <div style="font-size:.83rem;color:var(--muted);line-height:1.7;">You decide — relax at home or visit your preferred local salon.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="solution-mockup reveal reveal-delay-2">
+      <div class="mockup-header">
+        <div class="mockup-title">🔍 Nearby Services</div>
+        <div class="mockup-date">Today · Kochi, Kerala</div>
+      </div>
+      <div class="mockup-service-row">
+        <div class="msr-icon">✂️</div>
+        <div class="msr-info">
+          <div class="msr-name">Classic Haircut – Men</div>
+          <div class="msr-meta">Priya's Salon · 0.8 km · ⭐ 4.9</div>
+        </div>
+        <div>
+          <div class="msr-price">₹249</div>
+          <button class="msr-btn">Book</button>
+        </div>
+      </div>
+      <div class="mockup-service-row">
+        <div class="msr-icon">💄</div>
+        <div class="msr-info">
+          <div class="msr-name">Bridal Makeup Package</div>
+          <div class="msr-meta">Glamour Studio · 1.2 km · ⭐ 4.8</div>
+        </div>
+        <div>
+          <div class="msr-price">₹1,499</div>
+          <button class="msr-btn">Book</button>
+        </div>
+      </div>
+      <div class="mockup-service-row">
+        <div class="msr-icon">🐶</div>
+        <div class="msr-info">
+          <div class="msr-name">Dog Grooming – Full Bath</div>
+          <div class="msr-meta">PawCare Pro · 1.5 km · ⭐ 4.9</div>
+        </div>
+        <div>
+          <div class="msr-price">₹599</div>
+          <button class="msr-btn">Book</button>
+        </div>
+      </div>
+      <div class="mockup-confirm">
+        <div class="mc-icon">🎉</div>
+        <div class="mc-text">
+          <div class="mc-title">Booking Confirmed!</div>
+          <div class="mc-sub">3:30 PM · Classic Haircut · Priya's Salon</div>
+        </div>
+        <div style="font-size:.8rem;opacity:.75;">→ View</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="hiw-section" id="how-it-works">
+  <div style="max-width:1200px;margin:0 auto;text-align:center;">
+    <div class="section-label reveal" style="justify-content:center;">How It Works</div>
+    <h2 class="section-title reveal reveal-delay-1">From search to salon<br/>in 4 easy steps</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin:0 auto;">No calls, no waiting. Just open, search, book, and you're done.</p>
+
+    <div class="steps-grid">
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-num">1</div>
+        <div class="step-icon">📱</div>
+        <h3>Open the App</h3>
+        <p>Launch UrbanTrim on your phone or browser. Sign in in seconds with Google or your phone number.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-2">
+        <div class="step-num">2</div>
+        <div class="step-icon">🗺️</div>
+        <h3>Search Nearby Services</h3>
+        <p>Browse salons, beauticians, and pet groomers near you filtered by rating, distance, and price.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-3">
+        <div class="step-num">3</div>
+        <div class="step-icon">🗓️</div>
+        <h3>Choose Service & Time</h3>
+        <p>Pick your service, select an open time slot, and choose between salon visit or home service.</p>
+      </div>
+      <div class="step-card reveal reveal-delay-4">
+        <div class="step-num">4</div>
+        <div class="step-icon">💳</div>
+        <h3>Confirm & Pay</h3>
+        <p>Pay securely online or at the venue. Receive an instant confirmation with all your booking details.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section id="features">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label reveal">Key Features</div>
+    <h2 class="section-title reveal reveal-delay-1">Everything you need,<br/>nothing you don't</h2>
+    <p class="section-sub reveal reveal-delay-2">Built for people who value their time. Every feature is designed to make grooming effortless.</p>
+
+    <div class="features-grid">
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon">📅</div>
+        <h3>Online Booking System</h3>
+        <p>Instant slot booking with automated reminders so you never miss your appointment again.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">📍</div>
+        <h3>Nearby Salon Discovery</h3>
+        <p>Find top-rated salons and groomers based on your real-time location with live availability status.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon">⭐</div>
+        <h3>Ratings & Reviews</h3>
+        <p>Every provider is verified and reviewed by real customers, so you always know what to expect.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon">🔒</div>
+        <h3>Secure Payments</h3>
+        <p>Pay via UPI, card, or wallet with bank-grade encryption. Refunds processed in 24 hours.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">🕐</div>
+        <h3>Flexible Time-Slots</h3>
+        <p>See real-time availability and pick a slot that works for you — mornings, evenings, or weekends.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon">🏠</div>
+        <h3>Home Service Option</h3>
+        <p>Prefer the comfort of home? Book a verified groomer to come straight to your doorstep.</p>
+      </div>
+      <div class="feat-card reveal reveal-delay-1" style="grid-column:1/-1;max-width:400px;">
+        <div class="feat-icon">🐾</div>
+        <h3>Pet Grooming Services</h3>
+        <p>Dedicated category for pet care — bath, haircut, nail trimming, and more for your furry friends with certified groomers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CUSTOMERS ── -->
+<section class="customers-section">
+  <div style="max-width:1200px;margin:0 auto;text-align:center;">
+    <div class="section-label reveal" style="justify-content:center;">Who It's For</div>
+    <h2 class="section-title reveal reveal-delay-1">Built for every lifestyle</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin:0 auto;">UrbanTrim serves anyone who values convenience, quality, and time.</p>
+
+    <div class="customers-grid">
+      <div class="cust-card reveal reveal-delay-1">
+        <div class="cust-emoji">💼</div>
+        <h3>Working Professionals</h3>
+        <p>Squeeze in a haircut between meetings. Pre-book a weekend slot in 30 seconds.</p>
+      </div>
+      <div class="cust-card reveal reveal-delay-2">
+        <div class="cust-emoji">🎓</div>
+        <h3>Students</h3>
+        <p>Budget-friendly options, student discounts, and slots that fit your campus schedule.</p>
+      </div>
+      <div class="cust-card reveal reveal-delay-3">
+        <div class="cust-emoji">👨‍👩‍👧</div>
+        <h3>Families</h3>
+        <p>Book haircuts for the whole family at once. Home visits make it easy for kids and seniors.</p>
+      </div>
+      <div class="cust-card reveal reveal-delay-4">
+        <div class="cust-emoji">🐕</div>
+        <h3>Pet Owners</h3>
+        <p>Find certified, gentle groomers for your pets without the guesswork or worry.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BUSINESS MODEL ── -->
+<section id="business">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label reveal">Business Model</div>
+    <h2 class="section-title reveal reveal-delay-1">How UrbanTrim<br/>generates revenue</h2>
+    <p class="section-sub reveal reveal-delay-2">A multi-stream model built for sustainable growth while keeping service providers and customers first.</p>
+
+    <div class="biz-grid">
+      <div class="biz-card reveal reveal-delay-1">
+        <div class="biz-icon-wrap">💰</div>
+        <div>
+          <h3>Commission from Providers</h3>
+          <p>A small percentage on every completed booking — aligned incentives mean we grow when our partners grow.</p>
+        </div>
+      </div>
+      <div class="biz-card reveal reveal-delay-2">
+        <div class="biz-icon-wrap">🏅</div>
+        <div>
+          <h3>Premium Listings</h3>
+          <p>Salons and groomers can pay to feature at the top of search results and gain priority visibility with customers.</p>
+        </div>
+      </div>
+      <div class="biz-card reveal reveal-delay-3">
+        <div class="biz-icon-wrap">🚗</div>
+        <div>
+          <h3>Home Service Charges</h3>
+          <p>A convenience fee is applied to at-home bookings, shared between the platform and the service provider.</p>
+        </div>
+      </div>
+      <div class="biz-card reveal reveal-delay-4">
+        <div class="biz-icon-wrap">🤝</div>
+        <div>
+          <h3>Brand Partnerships</h3>
+          <p>Co-marketing with grooming brands, product integrations, and loyalty program partnerships for mutual growth.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VISION ── -->
+<section class="vision-section" id="vision">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label reveal">Future Vision</div>
+    <h2 class="section-title reveal reveal-delay-1">Where UrbanTrim<br/>is headed</h2>
+    <p class="section-sub reveal reveal-delay-2">We're just getting started. Here's the roadmap for the next chapter of UrbanTrim.</p>
+
+    <div class="vision-grid">
+      <div class="vision-card reveal reveal-delay-1">
+        <div class="vision-icon">🌆</div>
+        <h3>Multi-City Expansion</h3>
+        <p>From Kochi to Bangalore, Mumbai, Delhi, and beyond — bringing UrbanTrim to every major Indian city.</p>
+      </div>
+      <div class="vision-card reveal reveal-delay-2">
+        <div class="vision-icon">🤖</div>
+        <h3>AI Recommendations</h3>
+        <p>Smart suggestions based on your style history, preferences, and past bookings — personalized for you.</p>
+      </div>
+      <div class="vision-card reveal reveal-delay-3">
+        <div class="vision-icon">🎁</div>
+        <h3>Loyalty Programs</h3>
+        <p>Earn UrbanCoins on every booking. Redeem for discounts, free services, and exclusive perks.</p>
+      </div>
+      <div class="vision-card reveal reveal-delay-4">
+        <div class="vision-icon">🌿</div>
+        <h3>Wellness Services</h3>
+        <p>Expanding beyond grooming into massage, yoga, skincare, and holistic wellness services.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section" id="cta">
+  <div class="section-label reveal" style="justify-content:center;">Get Started Today</div>
+  <h2 class="reveal reveal-delay-1">Your next great look<br/>is one tap away</h2>
+  <p class="reveal reveal-delay-2">Join thousands of happy customers and hundreds of service providers already on UrbanTrim. Book your first appointment in seconds.</p>
+  <div class="cta-btns reveal reveal-delay-3">
+    <a href="#" class="btn-white">✂️ Book a Service Now</a>
+    <a href="#" class="btn-ghost">🤝 Partner With Us</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo"><span class="logo-dot"></span> UrbanTrim</span>
+        <p>The smart platform connecting people and pets with verified grooming professionals nearby or at home.</p>
+        <div class="social-links" style="margin-top:20px;">
+          <a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">f</a>
+          <a href="#" class="social-btn">📸</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="#">Press Kit</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#">Haircut & Styling</a>
+        <a href="#">Beauty & Makeup</a>
+        <a href="#">Pet Grooming</a>
+        <a href="#">Home Services</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#">Partner With Us</a>
+        <a href="#">Help Center</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 UrbanTrim. All rights reserved.</span>
+      <span style="color:rgba(255,255,255,.3);">Made with ♥ in Kerala, India</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── FLOATING BOOK CTA ── -->
+<div class="floating-cta" id="floatingCta">
+  <a href="#cta">✂️ Book Now</a>
+</div>
+
+<script>
+  // Navbar scroll state
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+    document.getElementById('floatingCta').classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth hover tilt on service cards
+  document.querySelectorAll('.scard, .feat-card, .prob-card, .cust-card, .vision-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(600px) rotateX(${-y * 4}deg) rotateY(${x * 4}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // Close mobile menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#mobileMenu') && !e.target.closest('#hamburger')) {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
